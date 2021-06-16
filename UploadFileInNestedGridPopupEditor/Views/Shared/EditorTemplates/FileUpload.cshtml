@@ -1,0 +1,20 @@
+﻿@model UploadFileInNestedGridPopupEditor.ViewModels.FileVM
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "";
+}
+
+@*<link rel="stylesheet" href="~/css/FileUploadForm.css"/>*@
+
+<form method="post" enctype="multipart/form-data" class="fileUpload" id="fileForm">
+    <input asp-for="Id" hidden />
+    <div class="form-group">
+        <input type="file" class="fileInput form-control" asp-for="FileUpload" required>
+        <span asp-validation-for="FileUpload" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <textarea class="fileInput form-control" asp-for="Description" required />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+</form>

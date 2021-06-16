@@ -1,0 +1,28 @@
+﻿.container-fluid {
+    padding: 1rem;
+}
+
+.userInfo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 300px;
+    height: 60px;
+    line-height: 60px;
+    margin: 10px;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    -webkit-transition: all 100ms ease-in-out;
+    transition: all 100ms ease-in-out;
+    border: none;
+    -webkit-box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
+    box-shadow: 0 1px 7px rgb(0 0 0 / 5%);
+}
+
+.userInfo {
+    transform: scale(1.04);
+    border: none;
+}

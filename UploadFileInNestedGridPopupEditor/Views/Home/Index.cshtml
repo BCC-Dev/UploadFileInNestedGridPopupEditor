@@ -1,0 +1,102 @@
+﻿@using UploadFileInNestedGridPopupEditor.ViewModels
+@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Bids";
+}
+
+@(Html.Kendo().Grid<BidVM>()
+    .Name("BidList")
+    .Columns(cols =>
+    {
+        cols.Bound(bid => bid.BidNumber).Title("Bid #").Width(100);
+        cols.Bound(bid => bid.BidTitle).Title("Title").Width(200);
+        cols.Bound(bid => bid.BidBeginDate).Title("Submittal Date").Width(200);
+        cols.Bound(bid => bid.BidClosingDate).Title("Due Date").Width(200);
+    })
+    .ClientDetailTemplateId("grid_template")
+    .DataSource(source => source
+        .Ajax()
+        .PageSize(20)
+        .Model(model => {
+            model.Id(bid => bid.BidProfileId);
+            model.Field(bid => bid.BidTitle);
+        })
+        .Read(read => read.Action("Read", "Home"))
+    )
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+)
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('div.card-header').html('<h5 class="card-title">Current Bids</h5>');
+        });
+
+        function onEdit(e) {
+            var model = e.model;
+            var kendoWindow = e.container.data("kendoWindow")/*$(".k-popup-edit-form.k-window-content").parent()*/;
+            var submitBtn = $(".k-edit-buttons a.k-grid-update");
+            if (model.isNew()) {
+                //Create event
+                kendoWindow.setOptions({
+                    title: "Add File",
+                });
+                submitBtn.text("Add");
+                $('#fileForm').attr({ 'asp-action': 'Create', 'asp-controller': 'File' });
+                //submitBtn.on('click', function (event) {
+                //    event.preventDefault();
+                //    $('#fileForm').submit();
+                //});
+            } else {
+                //Edit event
+                kendoWindow.setOptions({
+                    title: "Edit File",
+                });
+                submitBtn.text("Update");
+                $('#fileForm').attr({ 'asp-action': 'Update', 'asp-controller': 'File'});
+                //submitBtn.on('click', function (event) {
+                //    event.preventDefault();
+                //    $('#fileForm').submit();
+                //});
+            }
+        }
+    </script>
+
+    <script id="grid_template" type="text/kendo-tmpl">
+        @(Html.Kendo().Grid<FileVM>()
+            .Name("grid_#=BidProfileId#")
+            .Columns(columns =>
+            {
+                columns.Bound(f => f.Title).Width(400);
+                columns.Bound(f => f.Mimetype).Width(200);
+                columns.Command(command => command.Edit());
+            }).Width(100)
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(3)
+                .Model(model =>
+                {
+                    model.Id(f => f.Id);
+                    model.Field(f => f.Title).DefaultValue("new file");
+                    model.Field(f => f.Description).DefaultValue("Description");
+                    model.Field(f => f.Mimetype).DefaultValue("text");
+                })
+                .Create(create => create.Action("Create", "File", new { parentId = "#=BidProfileId#" }))
+                .Read(read => read.Action("Read", "File", new { parentId = "#=BidProfileId#" }))
+                .Update(update => update.Action("Update", "File", new { parentId = "#=BidProfileId#" }))
+            )
+            .ToolBar(tools => tools.Create())
+            .Editable(edit => edit.Mode(GridEditMode.PopUp)
+                .TemplateName("FileUpload")
+            )
+            .Events(events => events.Edit("onEdit"))
+            .Pageable()
+            .Sortable()
+            .ToClientTemplate()
+        )
+    </script>
+}

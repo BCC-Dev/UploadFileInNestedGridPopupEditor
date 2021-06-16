@@ -1,0 +1,117 @@
+﻿html {
+    position: relative;
+    min-height: 100%;
+}
+
+.navbar {
+    background-color: #1E376C;
+    color: #B7DCE1;
+}
+    .navbar-header>.navbar-brand {
+        color: #B7DCE1;
+    }
+    .navbar-header > .navbar-brand:hover {
+        color: #B7DCE1;
+        text-decoration: none;
+    }
+
+.card {
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    margin: 20px;
+}
+
+/* #region Footer styles */
+.footer {
+    background-color: #1E376C;
+    color: #B7DCE1;
+    /*position: absolute;*/
+    bottom: 0;
+    width: 100%;
+    font-size: 0.85em;
+    padding: 1rem;
+}
+
+p.text-muted {
+    color: #B7DCE1 !important;
+}
+/* #endregion */
+
+/* #region custom Kendo UI styles */
+#configure {
+    display: none;
+}
+
+.k-panelbar .k-content {
+    padding: 20px;
+}
+
+p .k-button {
+    margin: 0 15px 0 0;
+}
+
+.k-state-active .label {
+    font-size: 1em;
+}
+
+li.k-state-default > a {
+    color: #1E376C;
+}
+
+    li.k-state-default > a:hover {
+        color: #1E376C;
+        text-decoration: underline;
+    }
+
+li.k-state-highlight {
+    background-color: #b7dce1
+}
+
+    li.k-state-highlight > a {
+        color: #1E376C;
+    }
+
+    li.k-state-highlight > a:hover {
+        color: #1E376C;
+        text-decoration: underline;
+    }
+
+ul.k-pager-numbers .k-link.k-state-selected {
+    background-color: #b7dce1 !important;
+}
+/* #endregion */
+@media (max-width: 767px) {
+    #responsive-panel {
+        transition: all linear .2s;
+    }
+
+    #configure {
+        display: block;
+        float: right;
+    }
+
+    .k-rpanel {
+        width: 100%;
+    }
+
+    .k-rpanel-expanded {
+        margin-top: 1rem;
+    }
+
+    .navbar-header {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .k-menu .k-item,
+    .k-menu .k-link {
+        width: 100%;
+    }
+
+    .k-menu .k-link {
+        box-sizing: border-box;
+    }
+
+    .k-item.k-separator.k-state-default.k-menu-separator {
+        visibility: hidden;
+    }
+}
