@@ -73,6 +73,7 @@
             {
                 columns.Bound(f => f.Title).Width(400);
                 columns.Bound(f => f.Mimetype).Width(200);
+                columns.Bound(c => c.FileUrl).Width(200);
                 columns.Command(command => command.Edit());
             }).Width(100)
             .DataSource(dataSource => dataSource
@@ -84,6 +85,7 @@
                     model.Field(f => f.Title).DefaultValue("new file");
                     model.Field(f => f.Description).DefaultValue("Description");
                     model.Field(f => f.Mimetype).DefaultValue("text");
+                    model.Field(f => f.FileUrl).DefaultValue("");
                 })
                 .Create(create => create.Action("Create", "File", new { parentId = "#=BidProfileId#" }))
                 .Read(read => read.Action("Read", "File", new { parentId = "#=BidProfileId#" }))

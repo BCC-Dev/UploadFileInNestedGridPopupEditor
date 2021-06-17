@@ -1,20 +1,21 @@
-﻿@model UploadFileInNestedGridPopupEditor.ViewModels.FileVM
-@using Kendo.Mvc.UI
+﻿@model string
+@*@Html.HiddenFor(m => m)
+    @Html.ValidationMessageFor(m => m)*@
 
-@{
-    Layout = "";
-}
+<script>
+    function success(e) {
+        var FilePath = e.response.FileUrl;
 
-@*<link rel="stylesheet" href="~/css/FileUploadForm.css"/>*@
+        $("#FileUrl").val(FilePath).trigger("change");
+    }
+</script>
 
-<form method="post" enctype="multipart/form-data" class="fileUpload" id="fileForm">
-    <input asp-for="Id" hidden />
-    <div class="form-group">
-        <input type="file" class="fileInput form-control" asp-for="FileUpload" required>
-        <span asp-validation-for="FileUpload" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <textarea class="fileInput form-control" asp-for="Description" required />
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-</form>
+@(Html.Kendo().Upload()
+    .Name("file")
+    .Multiple(false)
+    .Async(a => a
+        .Save("Save", "File")
+        .AutoUpload(true)
+    )
+    .Events( e => e.Success("success"))
+)

@@ -21,7 +21,9 @@ namespace UploadFileInNestedGridPopupEditor.ViewModels
         [Display(Name = "Type")]
         public string Mimetype { get; set; }
 
+        [UIHint("FileUpload")]
         [Required]
+        public string FileUrl { get; set; }
         [DataType(DataType.Upload)]
         public IFormFile FileUpload { get; set; }
     }
